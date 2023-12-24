@@ -41,7 +41,7 @@ public class AppointmentDateController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
             @RequestParam Long doctorId) {
-        return appointmentDateService.getAppointmentsByDateRangeAndDoctorId(startDate, endDate, doctorId);
+        return appointmentDateService.getAppointmentsByDateRangeAndDoctorId(startDate.atStartOfDay(), endDate.atStartOfDay(), doctorId);
     }
     @GetMapping("/filter-by-date-range-and-animal")
     @ResponseStatus(HttpStatus.OK)
@@ -49,7 +49,7 @@ public class AppointmentDateController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
             @RequestParam Long animalId) {
-        return appointmentDateService.getAppointmentsByDateRangeAndAnimalId(startDate, endDate, animalId);
+        return appointmentDateService.getAppointmentsByDateRangeAndAnimalId(startDate.atStartOfDay(), endDate.atStartOfDay(), animalId);
     }
 
 

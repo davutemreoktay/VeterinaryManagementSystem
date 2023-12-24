@@ -33,14 +33,14 @@ public class AppointmentDateService {
     public List<AppointmentDateResponse> findAll() {
         return appointmentDateMapper.asOutput(appointmentDateRepository.findAll());
     }
-    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndDoctorId(LocalDate startDate, LocalDate endDate, Long doctorId) {
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndDoctorId(LocalDateTime startDate, LocalDateTime endDate, Long doctorId) {
         List<AppointmentDate> filteredAppointments = appointmentDateRepository
                 .findByAppointmentDateBetweenAndDoctorId(startDate, endDate, doctorId);
 
         return appointmentDateMapper.asOutput(filteredAppointments);
     }
 
-    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndAnimalId(LocalDate startDate, LocalDate endDate, Long animalId) {
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndAnimalId(LocalDateTime startDate, LocalDateTime endDate, Long animalId) {
         List<AppointmentDate> filteredAppointments = appointmentDateRepository
                 .findByAppointmentDateBetweenAndAnimalId(startDate, endDate, animalId);
 

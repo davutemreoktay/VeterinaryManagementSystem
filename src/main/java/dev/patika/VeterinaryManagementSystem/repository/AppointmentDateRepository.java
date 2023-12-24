@@ -20,9 +20,9 @@ public interface AppointmentDateRepository extends JpaRepository<AppointmentDate
 
     Optional<AppointmentDate> findByDoctorIdAndAppointmentDate(Long doctorId, LocalDateTime appointmentDate);
 
-    List<AppointmentDate> findByAppointmentDateBetweenAndDoctorId(LocalDate startDate, LocalDate endDate, Long doctorId);
+    List<AppointmentDate> findByAppointmentDateBetweenAndDoctorId(LocalDateTime startDate, LocalDateTime endDate, Long doctorId);
 
-    List<AppointmentDate> findByAppointmentDateBetweenAndAnimalId(LocalDate startDate, LocalDate endDate, Long animalId);
+    List<AppointmentDate> findByAppointmentDateBetweenAndAnimalId(LocalDateTime startDate, LocalDateTime endDate, Long animalId);
 
 
 }
