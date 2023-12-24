@@ -1,11 +1,10 @@
 package dev.patika.VeterinaryManagementSystem.entities;
 
 
+import dev.patika.VeterinaryManagementSystem.dto.response.VaccineResponse;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -14,6 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Vaccine {
 
     @Id
@@ -26,7 +27,6 @@ public class Vaccine {
     @Column(name = "code", nullable = false)
     private String code;
 
-
     @Column(name = "protection_start_date", nullable = false)
     private LocalDate protectionStartDate;
 
@@ -34,7 +34,8 @@ public class Vaccine {
     private LocalDate protectionFinishDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "animal_id")
+    @JoinColumn(name = "animal_id",referencedColumnName ="id")
     private Animal animal;
+
 
 }

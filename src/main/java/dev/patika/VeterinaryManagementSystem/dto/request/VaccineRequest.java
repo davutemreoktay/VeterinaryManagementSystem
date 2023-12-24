@@ -1,5 +1,6 @@
 package dev.patika.VeterinaryManagementSystem.dto.request;
 
+import dev.patika.VeterinaryManagementSystem.entities.Animal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class VaccineRequest {
     private String code;
     private LocalDate protectionStartDate;
     private LocalDate protectionFinishDate;
+    private Animal animal;
 }

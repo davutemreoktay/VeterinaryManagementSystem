@@ -1,5 +1,6 @@
 package dev.patika.VeterinaryManagementSystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class AppointmentDate {
     @Column(name = "id")
     private Long id;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "appointment_date", nullable = false)
     private LocalDateTime appointmentDate;
 

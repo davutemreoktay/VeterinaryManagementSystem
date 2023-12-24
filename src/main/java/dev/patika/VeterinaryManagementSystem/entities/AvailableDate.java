@@ -1,5 +1,6 @@
 package dev.patika.VeterinaryManagementSystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

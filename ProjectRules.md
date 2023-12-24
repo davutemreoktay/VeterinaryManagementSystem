@@ -74,9 +74,7 @@ Hayvanlar isme göre filtreleniyor mu? (4 Puan)
 
 Hayvan sahipleri isme göre filtreleniyor mu? (4 Puan)
 
-Evet
-
-Hayır
+# **Evet**
 
 Girilen hayvan sahibinin sistemde kayıtlı tüm hayvanlarını görüntüleme (sadece bir kişiye ait hayvanları görüntüle işlemi) başarılı bir şekilde çalışıyor mu? (4 Puan)
 

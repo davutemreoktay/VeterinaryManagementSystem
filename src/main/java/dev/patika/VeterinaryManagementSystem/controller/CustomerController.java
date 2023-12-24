@@ -1,7 +1,10 @@
 package dev.patika.VeterinaryManagementSystem.controller;
 
+import dev.patika.VeterinaryManagementSystem.dto.request.AnimalRequest;
 import dev.patika.VeterinaryManagementSystem.dto.request.CustomerRequest;
 import dev.patika.VeterinaryManagementSystem.dto.response.CustomerResponse;
+import dev.patika.VeterinaryManagementSystem.dto.response.CustomersAnimalResponse;
+import dev.patika.VeterinaryManagementSystem.entities.Animal;
 import dev.patika.VeterinaryManagementSystem.entities.Customer;
 import dev.patika.VeterinaryManagementSystem.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/customer")
@@ -56,4 +60,19 @@ public class CustomerController {
         customerService.deleteById(id);
     }
 
+    @GetMapping("/filterWithName")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CustomerResponse> filter(@RequestParam String name) {
+        return customerService.filter(name);
+    }
+    //@RequestParam bir Spring MVC özelliğidir ve bir HTTP isteği sırasında gelen parametreleri kontrol etmek için kullanılır.
+    //Özellikle, bir GET isteği ile gelen sorgu parametrelerini almak için kullanılır.
+    //@RequestParam anotasyonu, belirli bir parametrenin adını ve değerini belirlemek için kullanılır.
+
+
+    @GetMapping("/{customerId}/with-animals")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomersAnimalResponse getCustomerWithAnimals(@PathVariable Long customerId) {
+        return customerService.getCustomerWithAnimals(customerId);
+    }
 }

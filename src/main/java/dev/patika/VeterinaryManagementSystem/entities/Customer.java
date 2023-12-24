@@ -1,10 +1,8 @@
 package dev.patika.VeterinaryManagementSystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,7 +11,6 @@ import java.util.List;
 @Table(name = "customer")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Customer {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -36,6 +33,7 @@ public class Customer {
 
     @OneToMany (mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Animal> animals;
 
 

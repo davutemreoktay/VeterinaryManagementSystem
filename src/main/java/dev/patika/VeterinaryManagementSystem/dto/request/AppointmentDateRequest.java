@@ -1,6 +1,8 @@
 package dev.patika.VeterinaryManagementSystem.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import dev.patika.VeterinaryManagementSystem.entities.Animal;
+import dev.patika.VeterinaryManagementSystem.entities.Doctor;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +17,9 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDateRequest {
 
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime appointmentDate;
+    private Animal animal;
+    private Doctor doctor;
 
 }

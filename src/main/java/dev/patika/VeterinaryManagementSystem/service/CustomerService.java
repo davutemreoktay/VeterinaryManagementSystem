@@ -1,15 +1,21 @@
 package dev.patika.VeterinaryManagementSystem.service;
 
 import dev.patika.VeterinaryManagementSystem.dto.request.CustomerRequest;
+import dev.patika.VeterinaryManagementSystem.dto.response.AnimalResponse;
 import dev.patika.VeterinaryManagementSystem.dto.response.CustomerResponse;
+import dev.patika.VeterinaryManagementSystem.dto.response.CustomersAnimalResponse;
+import dev.patika.VeterinaryManagementSystem.entities.Animal;
 import dev.patika.VeterinaryManagementSystem.entities.Customer;
+import dev.patika.VeterinaryManagementSystem.mapper.AnimalMapper;
 import dev.patika.VeterinaryManagementSystem.mapper.CustomerMapper;
+import dev.patika.VeterinaryManagementSystem.repository.AnimalRepository;
 import dev.patika.VeterinaryManagementSystem.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +23,8 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final AnimalRepository animalRepository;
+    private final AnimalMapper animalMapper;
 
     public List<CustomerResponse> findAll() {
         return customerMapper.asOutput(customerRepository.findAll());
@@ -61,6 +69,31 @@ public class CustomerService {
         } else {
             throw new RuntimeException(id + " nolu müşteri bulunamadı.");
         }
+    }
+    public List<CustomerResponse> filter (String name) {
+        Optional<Customer> customers = customerRepository.findByNameContainingIgnoreCase(name);
+        return customers.stream()
+                .map(customerMapper::asOutput)
+                .collect(Collectors.toList());
+    }
+    public CustomersAnimalResponse getCustomerWithAnimals(Long customer_id) {
+        Customer customer = customerRepository.findById(customer_id)
+                .orElseThrow(() -> new RuntimeException("Müşteri bulunamadı."));
+
+        List<Animal> animals = animalRepository.findAllByCustomerId(customer_id);
+        List<AnimalResponse> animalResponses = animalMapper.asOutput(animals);
+
+        CustomersAnimalResponse response = new CustomersAnimalResponse(
+                customer.getId(),
+                customer.getName(),
+                customer.getPhone(),
+                customer.getMail(),
+                customer.getAddress(),
+                customer.getCity()
+        );
+        response.setAnimalResponseList(animalResponses);
+
+        return response;
     }
 
 }

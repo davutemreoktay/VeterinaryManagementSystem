@@ -1,5 +1,6 @@
 package dev.patika.VeterinaryManagementSystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,9 +12,7 @@ import java.util.List;
 @Table(name = "animal")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder//
-@Getter
-@Setter
+
 public class Animal {
     //GenerationType.IDENTITY, otomatik artış (auto-increment) özelliği olan birincil anahtar kullanılmasını ifade eder.
     // Bu strateji, genellikle MySQL veya PostgreSQL gibi bazı veritabanları için uygundur.
@@ -48,6 +47,7 @@ public class Animal {
 
     @OneToMany (mappedBy = "animal", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<AppointmentDate> appointmentDates;
     //mappedBy: Bu annotasyon, @OneToMany tarafında kullanılır ve iki varlık sınıfı arasındaki ilişkinin sahibini belirtir.
     //Yani, @OneToMany ilişkisi olan taraf, bu annotasyon ile hangi alanın karşı tarafın anahtarı olduğunu belirtir.
@@ -55,6 +55,7 @@ public class Animal {
 
     @OneToMany (mappedBy = "animal", fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List <Vaccine> vaccines;
 
     //Hangi yükleme stratejisinin kullanılacağı, uygulamanın ihtiyaçlarına ve performans gereksinimlerine bağlıdır.

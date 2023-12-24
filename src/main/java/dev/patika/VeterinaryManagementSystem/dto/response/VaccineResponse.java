@@ -1,5 +1,6 @@
 package dev.patika.VeterinaryManagementSystem.dto.response;
 
+import dev.patika.VeterinaryManagementSystem.entities.Animal;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,6 @@ public class VaccineResponse {
     private String code;
     private LocalDate protectionStartDate;
     private LocalDate protectionFinishDate;
-    private int animalId;
+    private Animal animal;
 
 }
