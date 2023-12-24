@@ -6,15 +6,19 @@ import dev.patika.VeterinaryManagementSystem.dto.response.AnimalResponse;
 import dev.patika.VeterinaryManagementSystem.dto.response.AppointmentDateResponse;
 import dev.patika.VeterinaryManagementSystem.entities.Animal;
 import dev.patika.VeterinaryManagementSystem.entities.AppointmentDate;
+import dev.patika.VeterinaryManagementSystem.entities.AvailableDate;
+import dev.patika.VeterinaryManagementSystem.entities.Doctor;
 import dev.patika.VeterinaryManagementSystem.mapper.AppointmentDateMapper;
 import dev.patika.VeterinaryManagementSystem.repository.AnimalRepository;
 import dev.patika.VeterinaryManagementSystem.repository.AppointmentDateRepository;
+import dev.patika.VeterinaryManagementSystem.repository.AvailableDateRepository;
 import dev.patika.VeterinaryManagementSystem.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -29,6 +33,20 @@ public class AppointmentDateService {
     public List<AppointmentDateResponse> findAll() {
         return appointmentDateMapper.asOutput(appointmentDateRepository.findAll());
     }
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndDoctorId(LocalDate startDate, LocalDate endDate, Long doctorId) {
+        List<AppointmentDate> filteredAppointments = appointmentDateRepository
+                .findByAppointmentDateBetweenAndDoctorId(startDate, endDate, doctorId);
+
+        return appointmentDateMapper.asOutput(filteredAppointments);
+    }
+
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndAnimalId(LocalDate startDate, LocalDate endDate, Long animalId) {
+        List<AppointmentDate> filteredAppointments = appointmentDateRepository
+                .findByAppointmentDateBetweenAndAnimalId(startDate, endDate, animalId);
+
+        return appointmentDateMapper.asOutput(filteredAppointments);
+    }
+
 
     public AppointmentDateResponse getById(Long id) {
         return appointmentDateMapper.asOutput(appointmentDateRepository.findById(id).orElseThrow(()
@@ -46,6 +64,7 @@ public class AppointmentDateService {
         if (existingAppointment.isPresent()) {
             throw new RuntimeException("Doktorun bu gün başka bir randevusu bulunmaktadır.");
         }
+
 
         // Doktorun müsait günü var mı kontrolü (burada doktorun müsait gün kontrolü yapılabilir)
         // Örneğin, doctorRepository üzerinden doktorun müsait gün bilgisini alabilir ve kontrol edebilirsiniz.

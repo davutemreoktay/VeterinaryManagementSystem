@@ -5,9 +5,11 @@ import dev.patika.VeterinaryManagementSystem.dto.response.AppointmentDateRespons
 import dev.patika.VeterinaryManagementSystem.mapper.AnimalMapper;
 import dev.patika.VeterinaryManagementSystem.service.AppointmentDateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @RestController
 @RequestMapping("/api/v1/appointmentDate")
@@ -31,6 +33,23 @@ public class AppointmentDateController {
     @ResponseStatus(HttpStatus.OK)
     public AppointmentDateResponse getById(Long id) {
         return appointmentDateService.getById(id);
+    }
+
+    @GetMapping("/filter-by-date-range-and-doctor")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndDoctor(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+            @RequestParam Long doctorId) {
+        return appointmentDateService.getAppointmentsByDateRangeAndDoctorId(startDate, endDate, doctorId);
+    }
+    @GetMapping("/filter-by-date-range-and-animal")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AppointmentDateResponse> getAppointmentsByDateRangeAndAnimal(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+            @RequestParam Long animalId) {
+        return appointmentDateService.getAppointmentsByDateRangeAndAnimalId(startDate, endDate, animalId);
     }
 
 

@@ -6,10 +6,13 @@ import dev.patika.VeterinaryManagementSystem.entities.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
 public interface AvailableDateRepository extends JpaRepository<AvailableDate,Long> {
 
     Optional<AvailableDate> findByDoctor (Doctor doctor);
+
+    Optional<AvailableDate>findByDoctorAndAvailableDate(Doctor doctor, LocalDate availableDate);
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDateRequest {
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "UTC")
     private LocalDateTime appointmentDate;
     private Animal animal;
     private Doctor doctor;
